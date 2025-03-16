@@ -22,4 +22,14 @@ echo Created %FINGERPRINT_FILE%
 
 echo.
 echo Certificate generation complete.
-pause 
+pause
+
+net session >nul 2>&1
+if %errorLevel% == 0 (
+    powershell -ExecutionPolicy Bypass -File "%~dp0create_self_signed_certs.ps1"
+) else (
+    echo Please run this script as Administrator
+    echo Right-click on this batch file and select "Run as administrator"
+    pause
+    exit /b 1
+) 
